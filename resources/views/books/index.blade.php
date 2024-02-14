@@ -28,8 +28,8 @@
                             <td>{{$book->name}}</td>
                             <td>{{$book->price}}</td>
                             <td><a href="{{ route('books.edit', $book->id)}}" class=" btn btn-info">Düzenle</a></td>
-                            <td><a href="{{ route('books.delete', $book->id)}}" class=" btn btn-danger">sil</a></td>
-                            
+                            <td><a href="{{ route('books.delete', $book->id)}}" class=" btn btn-danger" onclick="return confirm('Silmek istediğinize emin misiniz?')">sil</a></td>
+                            @csrf
                         </tr>
                             @endforeach
                         </tbody>

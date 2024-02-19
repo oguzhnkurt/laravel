@@ -29,15 +29,17 @@ class BookController extends Controller
 
         return redirect()->back();
     }
-    public function edit($id){
+    public function edit(Book $book){
         $user = auth()->user();
-        $book = $user->books()->notDeleteds()->findOrFail($id);
+        abort_if(!$user->books()->pluck('id')->contains($book->id), 404);
+        
         return view('books.edit', compact('book'));
 
     }
-    public function update(BookStoreRequest $request, $id){
-        $user= auth()->user();
-        $book= $user->books()->notDeleteds()->findOrFail($id);
+    public function update(Request $request, Book $book){
+        $user = auth()->user();
+        abort_unless($user->books()->pluck('id')->contains($book->id),404);
+        
         $book->name = $request->name;
         $book->price = $request->price;
         $book->save();
@@ -45,8 +47,9 @@ class BookController extends Controller
 
         return redirect()->back();                   
     }
-    public function delete($id){
-        Book::findOrFail($id)->delete();
+    
+    public function delete(Book $book){
+        $book->delete();
         Cache::delete('books');
         return redirect()->back();
 

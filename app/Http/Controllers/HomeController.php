@@ -24,4 +24,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function changelocale(){
+        if(session()->get('locale') == 'tr'){
+            session()->put('locale', 'en');
+        }else{
+            info('set tr');
+            session()->put('locale', 'tr');
+
+            return redirect()->back();
+        }
+    }
 }

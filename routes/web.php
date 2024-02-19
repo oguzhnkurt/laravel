@@ -46,5 +46,6 @@ Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('pr
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dil-degistir', [App\Http\Controllers\HomeController::class, 'changelocale'])->name('changelocale');
 
